@@ -1,0 +1,29 @@
+{
+  "schema": "stonkfly-purged-fly-base-baseline/preregister/v1",
+  "status": "PASS_RESEARCH_ONLY",
+  "candidate_manifest_sha256": "9a07849c4b910390a949934f3329bad7288142cce2acbea7ed3835bd5f77d7bc",
+  "market_manifest_sha256": "bebf4922faef670d665da46d8aece75665a0ec090426997172a71ea26f33c39c",
+  "market_qa_sha256": "4fb438b60da507b443639746fdc11224da14239c5dedc0a8d4977ee358d267fe",
+  "selector_generation_provenance_required": true,
+  "scope": {
+    "signal_start": "2021-07-01",
+    "signal_end": "2023-12-29",
+    "settlement_boundary": "2024-01-02",
+    "record_count": 46,
+    "target_code_count": 131
+  },
+  "seed": 17,
+  "plasticity_mode": "frozen",
+  "sensory_mode": "RGB-only",
+  "initial_brain": "clean/new; no historical checkpoint restore",
+  "execution": "paper/research only; raw XYSZ execution, valuation and reward-return marks",
+  "base": "independent fixed-zero selector hypothesis, multiplier 1.0, no Fly action reads",
+  "formal_authorization": false,
+  "live_execution_authorized": false,
+  "shadow_execution_authorized": false,
+  "report_limits": [
+    "engineered reinforcement only",
+    "no consciousness/pain/pleasure claim",
+    "no validated profitable learning claim"
+  ]
+}

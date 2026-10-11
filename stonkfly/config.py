@@ -37,9 +37,14 @@ class Settings:
     neural_ms: float = 500
     neural_bin_ms: float = 10
     pulse_ms: float = 200
+    pulse_delay_ms: float = 250  # Delay before pulse: let KC trace from previous obs decay
     pulse_current: float = 20
     reward_deadband: str = "0.01"
     decoder_threshold_hz: float = 2
+    decoder_type: str = "dnp20"  # "dnp20" (original), "mbon", or "mbon_ratio"
+    normalize_mbon: bool = False  # Scale MBON07 to compensate for anatomical imbalance
+    mbon_buy_threshold: float = 0.05   # For mbon_ratio: ratio below this -> BUY
+    mbon_sell_threshold: float = 0.15  # For mbon_ratio: ratio above this -> SELL
     paper_fee: str = "0.006"
     learning: bool = True
 
@@ -73,23 +78,28 @@ class Settings:
             raise ValueError("Rate limit: >=60 s between orders, <=100 orders/day")
         if D(self.reward_deadband) <= 0:
             raise ValueError("Positive reinforcement deadband required")
+        if self.decoder_type not in {"dnp20", "mbon", "mbon_ratio"}:
+            raise ValueError("Unknown decoder type")
+        if not 0 <= self.mbon_buy_threshold < self.mbon_sell_threshold:
+            raise ValueError("MBON ratio thresholds must satisfy 0 <= buy < sell")
         for x in [
             self.max_quote_age,
             self.neural_ms,
             self.neural_bin_ms,
             self.pulse_ms,
+            self.pulse_delay_ms,
             self.pulse_current,
             self.decoder_threshold_hz,
         ]:
-            if not math.isfinite(x) or x <= 0:
-                raise ValueError("Positive finite parameter required")
-        if self.neural_bin_ms > 10 or self.pulse_ms > self.neural_ms:
+            if not math.isfinite(x) or x < 0:
+                raise ValueError("Non-negative finite parameter required")
+        if self.neural_bin_ms > 10 or self.pulse_ms + self.pulse_delay_ms > self.neural_ms:
             raise ValueError(
-                "Use <=10 ms neural bins; pulse must fit a decision window"
+                "Use <=10 ms neural bins; pulse + delay must fit a decision window"
             )
         if any(
             abs(x * 10 - round(x * 10)) > 1e-7
-            for x in [self.neural_ms, self.neural_bin_ms, self.pulse_ms]
+            for x in [self.neural_ms, self.neural_bin_ms, self.pulse_ms, self.pulse_delay_ms]
         ):
             raise ValueError("Neural intervals must be multiples of 0.1 ms")
 

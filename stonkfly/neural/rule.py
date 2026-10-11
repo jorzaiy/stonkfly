@@ -14,9 +14,9 @@ import numpy as np
 PARAMETERS = {
     "trace_kc_seconds": 1.0,
     "trace_dan_seconds": 1.0,
-    "memory_decay_seconds": 1800.0,
+    "memory_decay_seconds": 900.0,  # 衰减常数 900 秒
     "weight_filter_seconds": 0.05,
-    "minimum_fraction": 0.1,
+    "minimum_fraction": 0.3,  # 权重下界 0.3，即 efficacy 不低于初始值的 30%
     "maximum_fraction": 2.0,
     "maximum_rate_bin_ms": 10.0,
     "source": "https://doi.org/10.1038/s41586-024-07819-w",

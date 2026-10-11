@@ -4,6 +4,8 @@
 
 A fly-connectome simulation that can operate a crypto trading account. Actual neural output, actual Coinbase integration. Profitable learning has not been demonstrated.
 
+> **Research archive (2026-10-10):** the MaleCNS v1 financial-learning route is closed after preregistered visual and olfactory qualification found no stable, sparse neural working regime. Historical execution code remains for reproducibility; it is not evidence of learned or profitable trading. See the [final archive](docs/20261010-male-cns-v1-final-archive.md).
+
 **How it works:** Public Coinbase prices become an RGB chart. It stimulates 3,335 brightness inputs and 811 R8 color inputs in the retained **MaleCNS v1.0 graph: 166,700 neurons, 25.6 million connections**. A fixed neural readout proposes buy, sell or hold. A custom **Coinbase AgentKit ActionProvider** checks limits and places spot orders through Coinbase Advanced.
 
 Positive portfolio P&L stimulates 15 identified PAM11 dopamine cells; negative P&L stimulates two PPL101 aversive dopamine cells. A candidate memory rule changes existing KC-to-MBON connections. These are engineered reinforcement signals, **not modeled pain receptors**. Synaptic changes do not establish that it learns to trade profitably. [Model and evidence](docs/model.md).
@@ -37,3 +39,7 @@ python -m pytest -q
 ```
 
 The repo does not come funded or connected to anyone’s account. Live execution needs your local credentials and explicit opt-in.
+
+### v3 replay (isolated)
+
+`experiments/a_share/replay_510300_v3.py` is an experimental, paper-only successor to v2. It preserves the 85% exposure and T+1 execution guards, adds an inclusive three-trading-day reversal cooldown, and logs Decimal action-advantage attribution only for FILLED executions. Each RGB portfolio frame and event records close-time buy capacity/equity, sellable value/equity, last fill side, clipped days-since-fill, and the current execution's advantage sign/ratio. Configuration is hashed into the run signature and provenance. It is not a profitability claim and must be evaluated separately from the retained v2 runs.

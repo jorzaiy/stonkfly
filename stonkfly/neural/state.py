@@ -5,8 +5,9 @@ import numpy as np
 
 class Brain:
     def __init__(self, path, dt=0.1):
-        if dt != 0.1:
-            raise ValueError("This audited kernel supports only dt=0.1 ms.")
+        allowed_dt = (0.1, 0.05, 0.025)
+        if dt not in allowed_dt:
+            raise ValueError("Diagnostic dt must be one of 0.1, 0.05, 0.025 ms.")
         a = np.load(path)
         for k in [
             "ptr",

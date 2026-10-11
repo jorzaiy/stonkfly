@@ -136,13 +136,18 @@ class VisualMemoryBrain(MemoryBrain):
         self.r8_light += (
             1 - math.exp(-round(duration_ms / self.dt) * self.dt / 10)
         ) * (values - self.r8_light)
+        retina_half_saturation = kwargs.pop("retina_half_saturation", 0.02)
+        lamina_bias = kwargs.pop("lamina_bias", 12.0)
+        if not np.isfinite(retina_half_saturation) or retina_half_saturation <= 0 or not np.isfinite(lamina_bias):
+            raise ValueError("Invalid visual calibration parameters")
         extra = kwargs.pop("stimulation", None)
         pulses = (
             [] if extra is None else list(extra) if isinstance(extra, list) else [extra]
         )
-        pulses.append((self.r8, 30 * self.r8_light / (0.02 + self.r8_light)))
+        pulses.append((self.r8, 30 * self.r8_light / (retina_half_saturation + self.r8_light)))
         return self.step(
-            retinal_samples(frame, self.uv), duration_ms, stimulation=pulses, **kwargs
+            retinal_samples(frame, self.uv), duration_ms, stimulation=pulses,
+            lamina_bias=lamina_bias, retina_half_saturation=retina_half_saturation, **kwargs
         )
 
     def configuration_signature(self):

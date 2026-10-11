@@ -1,0 +1,11 @@
+import ctypes as C
+import numpy as np
+class TraceObserverS2I(C.Structure):
+ _fields_=[('magic',C.c_uint64),('abi_version',C.c_int32),('size',C.c_int32),('source_n',C.c_int32),('target_node',C.c_int32),('overflow',C.c_int32),('source_slot',C.c_void_p),('source_spikes',C.c_void_p),('source_first',C.c_void_p),('source_events',C.c_void_p),('source_signed',C.c_void_p),('source_positive',C.c_void_p),('source_negative',C.c_void_p),('source_first_delivery',C.c_void_p),('source_last_delivery',C.c_void_p),('source_pre_count',C.c_void_p),('source_pre_first',C.c_void_p),('source_pre_last',C.c_void_p),('leader_first',C.c_void_p)]
+class TraceS2I:
+ MAGIC=0x5332495452414346
+ def __init__(self,source_slot,target_node):
+  self.source_slot=np.asarray(source_slot,np.int32);self.source_n=int(self.source_slot.max()+1);self.target_node=int(target_node);self.source_spikes=np.zeros(self.source_n,np.int32);self.source_first=np.full(self.source_n,-1,np.int32);self.source_events=np.zeros(self.source_n,np.int32);self.source_signed=np.zeros(self.source_n);self.source_positive=np.zeros(self.source_n);self.source_negative=np.zeros(self.source_n);self.source_first_delivery=np.full(self.source_n,-1,np.int32);self.source_last_delivery=np.full(self.source_n,-1,np.int32);self.source_pre_count=np.zeros(self.source_n,np.int32);self.source_pre_first=np.full(self.source_n,-1,np.int32);self.source_pre_last=np.full(self.source_n,-1,np.int32);self.leader_first=np.full(1,-1,np.int32);self.native=TraceObserverS2I(self.MAGIC,1,C.sizeof(TraceObserverS2I),self.source_n,self.target_node,0,*[x.ctypes.data for x in (self.source_slot,self.source_spikes,self.source_first,self.source_events,self.source_signed,self.source_positive,self.source_negative,self.source_first_delivery,self.source_last_delivery,self.source_pre_count,self.source_pre_first,self.source_pre_last,self.leader_first)])
+ def reset(self): self.native.overflow=0;self.source_spikes.fill(0);self.source_first.fill(-1);self.source_events.fill(0);self.source_signed.fill(0);self.source_positive.fill(0);self.source_negative.fill(0);self.source_first_delivery.fill(-1);self.source_last_delivery.fill(-1);self.source_pre_count.fill(0);self.source_pre_first.fill(-1);self.source_pre_last.fill(-1);self.leader_first.fill(-1)
+ def fail(self):
+  if self.native.overflow: raise RuntimeError('S2I trace overflow or ABI failure')

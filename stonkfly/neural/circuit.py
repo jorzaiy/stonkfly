@@ -77,6 +77,8 @@ def identify(brain):
         "mb": mb,
         "dan": dan,
         "reward": reward,
+        "reward_mb": reward_mb,
+        "aversive_mb": aversive_mb,
         "aversive": aversive,
         "edges": edges,
         "pre": pre,

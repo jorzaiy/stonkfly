@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly BASE=/home/ubuntu/stonkfly-lab
+readonly SERVICE=stonkfly-paper.service
+readonly PYTHON="$BASE/.venv/bin/python"
+readonly RUN="$BASE/runs/paper"
+
+usage() {
+  printf '%s\n' \
+    'Usage: stonkflyctl start|stop|restart|status|fly-status|logs|verify|uninstall' \
+    '' \
+    'This controller manages paper trading only. It never adds --live.'
+}
+
+case "${1:-}" in
+  start)
+    systemctl --user start "$SERVICE"
+    ;;
+  stop)
+    systemctl --user stop "$SERVICE"
+    ;;
+  restart)
+    systemctl --user restart "$SERVICE"
+    ;;
+  status)
+    systemctl --user status "$SERVICE" --no-pager || true
+    ;;
+  fly-status)
+    if [[ ! -f "$RUN/ledger.sqlite" ]]; then
+      printf 'No paper ledger exists yet: %s\n' "$RUN/ledger.sqlite"
+      exit 1
+    fi
+    STONKFLY_DATA="$BASE/data" "$PYTHON" -m stonkfly status --out "$RUN"
+    ;;
+  logs)
+    journalctl --user -u "$SERVICE" -n "${2:-200}" --no-pager
+    ;;
+  verify)
+    STONKFLY_DATA="$BASE/data" "$PYTHON" -m stonkfly verify
+    ;;
+  uninstall)
+    exec "$BASE/uninstall.sh" "${2:-}"
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

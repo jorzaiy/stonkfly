@@ -74,8 +74,10 @@ class MemoryBrain(NativeBrain):
         kc_rest=-60.0,
         adaptation_jump=8.0,
         adaptation_tau=200.0,
+        diagnostic_dt_ms=None,
     ):
-        super().__init__(path)
+        dt = 0.1 if diagnostic_dt_ms is None else diagnostic_dt_ms
+        super().__init__(path, dt=dt)
         self.build = build()
         self.library = C.CDLL(str(LIBRARY))
         self.advance = self.library.memory_advance
@@ -98,6 +100,14 @@ class MemoryBrain(NativeBrain):
                 C.c_void_p,
                 C.c_float,
                 C.c_float,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
+                C.c_void_p,
             ]
         )
         self.advance.restype = None
@@ -187,6 +197,14 @@ class MemoryBrain(NativeBrain):
         ):
             raise ValueError("Invalid DAN baseline")
         self.weights_frozen = False
+        self.trace_observer = None
+        self.trace_observer_s2f = None
+        self.trace_observer_s2g = None
+        self.trace_observer_s2h = None
+        self.trace_observer_s2i = None
+        self.trace_observer_s2l = None
+        self.trace_observer_s2m = None
+        self.trace_observer_s2n = None
         for k in ["rate_kc", "rate_dan", "memory_u", "memory_w"]:
             self.fields.append(k)
             self.initial[k] = getattr(self, k).copy()
@@ -212,6 +230,7 @@ class MemoryBrain(NativeBrain):
         learning=False,
         stimulation=None,
         lamina_bias=12.0,
+        retina_half_saturation=0.02,
     ):
         light = np.asarray(luminance)
         if light.shape != (len(self.retina),) or not np.isfinite(light).all():
@@ -221,6 +240,8 @@ class MemoryBrain(NativeBrain):
             not math.isfinite(duration_ms)
             or steps < 1
             or not math.isfinite(lamina_bias)
+            or not math.isfinite(retina_half_saturation)
+            or retina_half_saturation <= 0
         ):
             raise ValueError("Invalid interval/current")
         self.luminance += (1 - math.exp(-steps * self.dt / 10)) * (
@@ -228,7 +249,7 @@ class MemoryBrain(NativeBrain):
         )
         self.drive.fill(0)
         self.drive[self.lamina] = lamina_bias
-        self.drive[self.retina] = 30 * self.luminance / (0.02 + self.luminance)
+        self.drive[self.retina] = 30 * self.luminance / (retina_half_saturation + self.luminance)
         self.drive += self.tonic
         if stimulation is not None:
             pulses = stimulation if isinstance(stimulation, list) else [stimulation]
@@ -290,6 +311,14 @@ class MemoryBrain(NativeBrain):
             self.adaptation.ctypes.data,
             self.adaptation_jump,
             self.adaptation_tau,
+            self.trace_observer,
+            self.trace_observer_s2f,
+            self.trace_observer_s2g,
+            self.trace_observer_s2h,
+            self.trace_observer_s2i,
+            self.trace_observer_s2l,
+            self.trace_observer_s2m,
+            self.trace_observer_s2n,
         )
         elapsed = time.perf_counter() - start
         self.cursor = int(clock[0])
@@ -305,11 +334,23 @@ class MemoryBrain(NativeBrain):
         learning=False,
         stimulation=None,
         lamina_bias=12.0,
+        retina_half_saturation=0.02,
+        plasticity_gain=None,
     ):
         from .rule import advance
 
         if not math.isfinite(duration_ms) or duration_ms <= 0:
             raise ValueError("Invalid duration")
+        if plasticity_gain is None:
+            rule_gain = self.circuit["gain"]
+        else:
+            try:
+                rule_gain = np.asarray(plasticity_gain)
+                valid_gain = rule_gain.shape == self.circuit["gain"].shape and np.isfinite(rule_gain).all()
+            except (TypeError, ValueError):
+                valid_gain = False
+            if not valid_gain:
+                raise ValueError("plasticity_gain must match circuit gain shape and contain only finite values")
         remaining = round(duration_ms / self.dt)
         if remaining < 1:
             raise ValueError("Duration too short")
@@ -326,6 +367,7 @@ class MemoryBrain(NativeBrain):
                 learning=False,
                 stimulation=stimulation,
                 lamina_bias=lamina_bias,
+                retina_half_saturation=retina_half_saturation,
             )
             seconds = interval / 1000
             advance(
@@ -335,7 +377,7 @@ class MemoryBrain(NativeBrain):
                 self.memory_w,
                 c[self.circuit["pre"]] / seconds,
                 c[self.circuit["dan"]] / seconds - self.dan_baseline_hz,
-                self.circuit["gain"],
+                rule_gain,
                 seconds,
                 self.eta,
                 learning,
@@ -359,6 +401,7 @@ class MemoryBrain(NativeBrain):
             "changed_edges": int(np.count_nonzero(w != self.baseline_plastic)),
             "mean_efficacy": float(fraction.mean()),
             "minimum_efficacy": float(fraction.min()),
+            "maximum_efficacy": float(fraction.max()),
             "sha256": digest(w),
             "model": MODEL,
         }
@@ -420,6 +463,43 @@ class MemoryBrain(NativeBrain):
             self.sim_ms = self.cursor * self.dt
             self.total_spikes = int(m["total_spikes"])
             self.weights_frozen = bool(m["weights_frozen"])
+
+    def restore_weights_only(self, path):
+        """Restore only synaptic weights, keeping dynamic state fresh.
+        
+        This is useful when transferring learned weights to a new time period,
+        avoiding the issue where neurons stuck in deep inhibition cannot recover.
+        """
+        with np.load(path, allow_pickle=False) as a:
+            m = json.loads(str(a["metadata"]))
+            expected = {
+                "model": MODEL,
+                "build": self.build,
+                "eta": self.eta,
+                "parameters": PARAMETERS,
+                "graph_ids_sha256": digest(self.ids),
+                "graph_ptr_sha256": digest(self.ptr),
+                "graph_post_sha256": digest(self.post),
+                "plastic_edges_sha256": digest(self.circuit["edges"]),
+                "configuration_sha256": self.configuration_signature(),
+            }
+            if any(m.get(k) != v for k, v in expected.items()):
+                raise ValueError("Checkpoint provenance mismatch")
+            if (
+                a["weight"].shape != self.weight.shape
+                or a["weight"].dtype != self.weight.dtype
+            ):
+                raise ValueError("Checkpoint weight array mismatch")
+            if not np.isfinite(a["weight"]).all():
+                raise ValueError("Nonfinite checkpoint weights")
+            self.weight[:] = a["weight"]
+            # Restore plasticity memory (learned weight modifications)
+            if "memory_u" in a.files and "memory_w" in a.files:
+                if a["memory_u"].shape == self.memory_u.shape and a["memory_w"].shape == self.memory_w.shape:
+                    self.memory_u[:] = a["memory_u"]
+                    self.memory_w[:] = a["memory_w"]
+            # Keep cursor, sim_ms, total_spikes at initial values
+            # Keep dynamic state (v, g, refractory, etc.) fresh
 
     def configuration_signature(self):
         # Equal cell IDs and CSR endpoints alone do not imply equal input
