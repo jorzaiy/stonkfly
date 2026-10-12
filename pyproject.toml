@@ -18,12 +18,14 @@ test = ["pytest==9.1.1"]
 
 [project.scripts]
 stonkfly = "stonkfly.cli:main"
+stonkfly-orchard = "stonkfly.orchard.server:main"
 
 [tool.setuptools.packages.find]
 include = ["stonkfly*"]
 
 [tool.setuptools.package-data]
 "stonkfly.neural" = ["*.cpp", "*.json"]
+"stonkfly.orchard" = ["static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

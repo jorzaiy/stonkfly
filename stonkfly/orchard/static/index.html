@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stonkfly Orchard</title>
+  <meta name="description" content="一个不考试的果蝇蘑菇体二维果园。">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">STONKFLY ORCHARD · LOCAL LAB</p>
+        <h1>让果蝇在果园里生活</h1>
+        <p class="lede">神经偏好提供方向，随机探索带来漫游，环境物理决定它真正走到哪里。</p>
+        <p class="fly-bio">前量化交易员，现居果园。性格孤僻，喜欢花，不爱香蕉，偶尔去休息区发呆。<br>对人类安排的奖励机制持保留态度。</p>
+      </div>
+      <div class="status"><span id="statusDot"></span><strong id="statusText">已暂停</strong><small id="clock">0.0 s</small></div>
+    </header>
+
+    <section class="toolbar" aria-label="模拟控制">
+      <button id="start">▶ 启动</button>
+      <button id="pause">Ⅱ 暂停</button>
+      <button id="step">· 单步</button>
+      <button id="reset" class="ghost">↺ 同 seed 重放</button>
+      <span class="seed">SEED <b id="seed">—</b></span>
+    </section>
+
+    <section class="layout">
+      <div class="canvas-card">
+        <canvas id="orchard" width="960" height="620" aria-label="二维虚拟果园"></canvas>
+        <div class="legend"><span class="banana">● 香蕉</span><span class="flower">● 花朵</span><span class="rest">● 休息区</span><span class="fly">◆ fly</span></div>
+      </div>
+
+      <aside>
+        <section class="panel neural-panel">
+          <div class="panel-title"><span>NEURAL STATE</span><small id="model">—</small></div>
+          <div class="meter"><label>KC activity</label><i><b id="kcBar"></b></i><output id="kc">0</output></div>
+          <div class="meter"><label>APL feedback</label><i><b id="aplBar"></b></i><output id="apl">0</output></div>
+          <div class="meter"><label>Memory Δ</label><i><b id="memoryBar"></b></i><output id="memory">0</output></div>
+          <div id="preferences" class="preferences"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title"><span>ODOR FIELD</span><small>当前位置</small></div>
+          <div id="odors" class="odor-list"></div>
+        </section>
+
+        <section class="panel split-panel">
+          <div class="panel-title"><span>CONTROL SPLIT</span><small>无隐藏导航脚本</small></div>
+          <dl>
+            <div><dt>神经转向</dt><dd id="neuralTurn">0</dd></div>
+            <div><dt>随机探索</dt><dd id="randomTurn">0</dd></div>
+            <div><dt>合成转向</dt><dd id="totalTurn">0</dd></div>
+            <div><dt>能量 / 物理</dt><dd id="energy">0</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel log-panel">
+          <div class="panel-title"><span>RUN LOG</span><small>最近事件</small></div>
+          <ol id="log"></ol>
+        </section>
+      </aside>
+    </section>
+
+    <footer>探索性工程演示 · 人工 DAN 奖励仅在首次进入香蕉区时输入 · 不模拟运动回路 · 不接入市场或交易</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
