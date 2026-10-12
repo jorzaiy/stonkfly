@@ -1,0 +1,10 @@
+{
+  "schema": "stonkfly-m1-freeze-v5-supersession-v1",
+  "status": "SUPERSEDED_PROTOCOL_NOT_RUN",
+  "v4_manifest_hashes": {
+    "m1_rq-manifest.json": "1ee0b3fdcceac3fcb4c1e8d15d66bdd6b3dd1e3837ed2343a5c3df7d93405a74",
+    "m1_rt-manifest.json": "5ff97605b18a2c6726d861ec7d90d2136726a9fd598e626ff6e93f05f5a19be7",
+    "m2_lq-manifest.json": "3b57c061774d3479008b24d2c389e048c178027e0ecaec5413fbf6cf8865f75e",
+    "m2_lt-manifest.json": "74299e0040706982449a9ec250df43163763d088f34d6daa4990da8e0a15afdd"
+  }
+}

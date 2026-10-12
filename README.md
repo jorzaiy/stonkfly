@@ -6,6 +6,8 @@ A fly-connectome simulation that can operate a crypto trading account. Actual ne
 
 > **Research archive (2026-10-10):** the MaleCNS v1 financial-learning route is closed after preregistered visual and olfactory qualification found no stable, sparse neural working regime. Historical execution code remains for reproducibility; it is not evidence of learned or profitable trading. See the [final archive](docs/20261010-male-cns-v1-final-archive.md).
 
+> **Mushroom Body Lab v2 (2026-10-12):** synthetic-odor representation and engineered association experiments, with no market or trading input. Formal NO-GO results and the lightweight data package are summarized in the [v2 experiment archive](docs/STONKFLY_V2_EXPERIMENT_SUMMARY.md).
+
 **How it works:** Public Coinbase prices become an RGB chart. It stimulates 3,335 brightness inputs and 811 R8 color inputs in the retained **MaleCNS v1.0 graph: 166,700 neurons, 25.6 million connections**. A fixed neural readout proposes buy, sell or hold. A custom **Coinbase AgentKit ActionProvider** checks limits and places spot orders through Coinbase Advanced.
 
 Positive portfolio P&L stimulates 15 identified PAM11 dopamine cells; negative P&L stimulates two PPL101 aversive dopamine cells. A candidate memory rule changes existing KC-to-MBON connections. These are engineered reinforcement signals, **not modeled pain receptors**. Synaptic changes do not establish that it learns to trade profitably. [Model and evidence](docs/model.md).

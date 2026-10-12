@@ -1,0 +1,17 @@
+{
+  "access": "SEALED_AWAITING_EXPLICIT_STAGE_AUTHORIZATION",
+  "config_sha256": "4a36718de702128bed899e16ff72233f88e07a2f11a8db727f67ed3ffcb4df48",
+  "content_sha256": "57e6473978d4c126f464760c79761ec23db39401cedb12acbb156a4507bea35f",
+  "content_status": "M2_SEED_RESERVATION_ONLY_NO_TASK_CONTENT",
+  "custodian": "local_manual_review",
+  "domain": "M2_LQ",
+  "encryption": "AES-256-GCM with unique 96-bit nonce and domain label as AAD",
+  "key_relative_path": "data/mb_lab/sealed/m1_v1-freeze-v4/m2_lq.key",
+  "schema": "stonkfly-sealed-domain-manifest-v1",
+  "sealed_payload_relative_path": "data/mb_lab/sealed/m1_v1-freeze-v4/m2_lq.sealed",
+  "sealed_payload_sha256": "6155beeea58ed0c1afecf51e8bb120affb8c9e0bdc0e2f56ca577b82e032fe7f",
+  "sealer_sha256": "9a713644925ebcc63b48748b20e4e1affb5fd3553cde9d22159e56a24d1da774",
+  "seed_commitment_sha256": "685f3e736f5772f4b0e5e8adba7ae9f73f84ec9f0f7337f0980453278f312936",
+  "seed_exposed": false,
+  "stimulus_generator_sha256": "240354aa82cac74a4615cbcca2407ebbf2aa67f1d00196e54ee17f19f9b69365"
+}

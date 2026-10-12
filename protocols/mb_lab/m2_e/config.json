@@ -1,0 +1,56 @@
+{
+  "schema": "stonkfly-m2-e-preparation-config-v1",
+  "status": "AUTHORIZED_EXPLORATION_ONCE",
+  "sensory": {
+    "model": "G",
+    "tau_k_ms": 10.0,
+    "tau_apl_ms": 50.0,
+    "input_scale": 1.0,
+    "apl_gain": 1.0,
+    "threshold": 0.35,
+    "dt_ms": 0.025,
+    "duration_ms": 2000.0,
+    "pulse_start_ms": 500.0,
+    "pulse_end_ms": 1000.0,
+    "trace_bin_ms": 10.0
+  },
+  "plasticity": {
+    "trace_kc_seconds": 1.0,
+    "trace_dan_seconds": 1.0,
+    "memory_decay_seconds": 900.0,
+    "weight_filter_seconds": 0.05,
+    "minimum_fraction": 0.3,
+    "maximum_fraction": 2.0,
+    "effective_eta_per_second": 0.1,
+    "dan_amplitude_dimensionless": 1.0,
+    "dan_duration_ms": 100.0,
+    "paired_start_ms": 900.0,
+    "unpaired_delay_after_odor_offset_ms": 6000.0,
+    "inter_trial_washout_ms": 6000.0
+  },
+  "smoke": {
+    "seed_label": "STONKFLY-V2/M2-E/TOY-SMOKE/v1",
+    "odor_count": 2,
+    "repeat_count": 2,
+    "active_pn_count_per_odor": 29,
+    "acquisition_cycles": 2,
+    "formal_matrix": false
+  },
+  "full_exploration": {
+    "authorized": true,
+    "odor_pair_count": 8,
+    "training_cycles_per_phase": 10,
+    "probe_repeats_per_stage_odor": 5,
+    "retention_blank_seconds": 60.0,
+    "estimated_unique_sensory_paths": 640,
+    "run_limit": 1
+  },
+  "budgets": {
+    "smoke_cpu_seconds": 900.0,
+    "smoke_wall_seconds": 1200.0,
+    "smoke_rss_gib": 2.0,
+    "smoke_artifact_mib": 100.0,
+    "future_exploration_cpu_hours": 2.0
+  },
+  "forbidden": ["M1_RT", "legacy_M2", "market", "trading", "execution"]
+}

@@ -1,0 +1,111 @@
+{
+  "schema": "stonkfly-m1-preregister-v1",
+  "status": "CANDIDATE_FROZEN_AWAITING_INDEPENDENT_GO_NO_GO",
+  "model": {
+    "equation": "tau_k*du/dt=-u+s*mean_connected_pn(x)-g_apl*a; r=max(u-theta,0); tau_apl*da/dt=-a+mean_kc(r)",
+    "pn_kc_weight": "binary adjacency normalized by each covered KC PN indegree",
+    "integration": "explicit_euler_float64",
+    "initial_u": 0.0,
+    "initial_apl": 0.0,
+    "noise": "input-only frozen repeat jitter; no state or process noise"
+  },
+  "parameters": {
+    "tau_k_ms": 10.0,
+    "tau_apl_ms": 50.0,
+    "input_scale": 1.0,
+    "apl_gain": 1.0,
+    "threshold": 0.35,
+    "active_mean_rate_threshold": 0.05
+  },
+  "parameter_evidence": {
+    "tau_k_ms": {"grade": "P(M)", "unit": "ms", "source": "No direct mapping found; electrophysiology context: https://pmc.ncbi.nlm.nih.gov/articles/PMC12487611/", "reason": "round engineering low-pass constant; no independently validated MaleCNS KC value maps to this proxy equation"},
+    "tau_apl_ms": {"grade": "P(M)", "unit": "ms", "source": "Qualitative APL feedback only: https://doi.org/10.1038/nn.3660", "reason": "APL feedback is slower than the KC proxy by design; no unique whole-cell APL constant is available for this scalar proxy"},
+    "input_scale": {"grade": "P", "unit": "dimensionless state per normalized PN rate", "source": "Model normalization convention; no biological numeric source", "reason": "fixes the normalized model scale to one and removes a redundant free scaling degree"},
+    "apl_gain": {"grade": "P(M)", "unit": "dimensionless", "source": "Qualitative inhibition/normalization: https://doi.org/10.1038/nn.3660 and https://elifesciences.org/articles/74172", "reason": "unit feedback gain tests the validated qualitative inhibitory direction without fitting its magnitude"},
+    "threshold": {"grade": "P", "unit": "dimensionless proxy state", "source": "Coincidence constraint: https://pmc.ncbi.nlm.nih.gov/articles/PMC10529417/", "reason": "0.35 requires substantial coincident normalized PN drive and is fixed analytically, not from formal outputs"},
+    "active_mean_rate_threshold": {"grade": "P", "unit": "dimensionless proxy output", "source": "Biological responsiveness is assay-specific: https://pmc.ncbi.nlm.nih.gov/articles/PMC3180869/", "reason": "fixed response classifier for the proxy rate; not a biological firing threshold"}
+  },
+  "timeline_ms": {
+    "trial_start": 0.0,
+    "baseline_end": 500.0,
+    "stimulus_start": 500.0,
+    "stimulus_end": 1000.0,
+    "withdrawal_end": 2000.0,
+    "response_window": [500.0, 1000.0],
+    "recovery_window": [1500.0, 2000.0]
+  },
+  "stimulus": {
+    "pn_count": 145,
+    "odor_count": 16,
+    "repeat_count": 10,
+    "active_pn_count_per_odor": 29,
+    "active_pn_fraction": 0.2,
+    "base_amplitude_uniform": [0.8, 1.0],
+    "repeat_jitter_normal_sd": 0.05,
+    "clip": [0.0, 1.0],
+    "zero_control": true
+  },
+  "numerics": {
+    "dt_ms": [0.1, 0.05, 0.025],
+    "scientific_dt_ms": 0.025,
+    "active_fraction_abs_error_max": {"0.1": 0.005, "0.05": 0.0025},
+    "rate_nrmse_max": {"0.1": 0.05, "0.05": 0.025},
+    "active_jaccard_min": {"0.1": 0.9, "0.05": 0.95},
+    "halving_ratio_max": 0.6,
+    "absolute_nrmse_floor": 0.0001
+  },
+  "population": {
+    "primary_gate_denominator": "1907_right_olfactory_covered_kc",
+    "secondary_full_denominator": "2045_all_right_kc",
+    "uncovered_kc_report_policy": "append 138 structural zeros only for secondary full-population metrics"
+  },
+  "topology_controls": {
+    "count": 39,
+    "seed_derivation": "little-endian uint64 from first 8 bytes of SHA256('STONKFLY-V2/M1/TOPOLOGY-C/v1/{index}')",
+    "seed_list_sha256": "1abc6872a5ea24c24fd7fe6c4f2064ae2c1a94b934281d6cdc6f7d63e4f1b79e",
+    "accepted_double_edge_swaps_per_edge": 5
+  },
+  "statistics": {
+    "within_odor_pairs_zero_based": [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]],
+    "between_odor_match": "three highest noiseless-base PN cosine neighbors per odor; descending cosine then ascending odor index; compare same repeat index",
+    "separation_statistic": "T_sep=mean over 16 odors of R_o-D_o; median margin is descriptive only",
+    "separation_null": "fixed-seed Monte Carlo sign-flip of the 16 odor-level paired margins R_o-D_o using their mean; odors, not trials, are the exchangeability units",
+    "separation_permutations": 9999,
+    "separation_alpha": 0.01,
+    "separation_effect_min": 0.2,
+    "reliability_median_min": 0.6,
+    "reliability_odor_min": 0.5,
+    "reliability_odors_required": 14,
+    "apl_delta_median_min": 0.02,
+    "apl_positive_odors_required": 13,
+    "apl_exact_sign_flip_alpha": 0.01,
+    "topology_control_count": 39,
+    "topology_rank_alpha": 0.05,
+    "topology_effect_min": 0.05,
+    "sparsity_each_odor": [0.02, 0.1],
+    "sparsity_odor_median": [0.04, 0.08],
+    "sparsity_any_trial_max": 0.2,
+    "recovery_tail_active_fraction_max": 0.01,
+    "recovery_state_error_95pct_max": 0.05,
+    "recovery_state_error_any_max": 0.1
+  },
+  "verdict_precedence": [
+    "M1_IMPLEMENTATION_FAILURE",
+    "M1_BUDGET_EXHAUSTED",
+    "M1_NUMERICAL_NO_GO",
+    "M1_REPRESENTATION_NO_GO",
+    "M1_GENERALIZATION_NO_GO",
+    "M1_MECHANISM_QUALIFIED_TOPOLOGY_NOT_DEMONSTRATED",
+    "M1_MECHANISM_AND_PROXY_TOPOLOGY_INCREMENT_QUALIFIED"
+  ],
+  "budget": {
+    "preparation_cpu_hours": 4.0,
+    "inventory_cpu_hours": 2.0,
+    "per_formal_stage_cpu_hours": 24.0,
+    "formal_total_cpu_hours": 48.0,
+    "peak_ram_gib": 4.0,
+    "artifact_gib": 5.0,
+    "per_stage_wall_hours": 24.0,
+    "gpu": false
+  }
+}

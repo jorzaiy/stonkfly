@@ -1,0 +1,74 @@
+{
+  "schema": "stonkfly-m2-c-readout-reliability-config-v1",
+  "status": "AUTHORIZED_EXPLORATION_ONCE",
+  "sensory": {
+    "model": "G",
+    "tau_k_ms": 10.0,
+    "tau_apl_ms": 50.0,
+    "input_scale": 1.0,
+    "apl_gain": 1.0,
+    "threshold": 0.35,
+    "dt_ms": 0.025,
+    "duration_ms": 2000.0,
+    "pulse_start_ms": 500.0,
+    "pulse_end_ms": 1000.0,
+    "trace_bin_ms": 10.0
+  },
+  "plasticity": {
+    "trace_kc_seconds": 1.0,
+    "trace_dan_seconds": 1.0,
+    "memory_decay_seconds": 900.0,
+    "weight_filter_seconds": 0.05,
+    "minimum_fraction": 0.3,
+    "maximum_fraction": 2.0,
+    "effective_eta_per_second": 0.1,
+    "dan_amplitude_dimensionless": 1.0,
+    "dan_duration_ms": 100.0,
+    "paired_start_ms": 900.0,
+    "unpaired_delay_after_odor_offset_ms": 6000.0,
+    "inter_trial_washout_ms": 6000.0
+  },
+  "readout": {
+    "baseline_calibration_repeats_per_odor": 5,
+    "probe_repeats_per_stage_odor": 10,
+    "aggregate_count": 10,
+    "single_control_repeat_index": 0,
+    "threshold": 0.0,
+    "tie_rule": "exact_float_zero",
+    "pair_success_count": 3
+  },
+  "exploration": {
+    "authorized": true,
+    "odor_pair_count": 4,
+    "active_pn_count_per_odor": 29,
+    "training_cycles_per_phase": 10,
+    "retention_blank_seconds": 60.0,
+    "estimated_unique_sensory_paths": 520,
+    "run_limit": 1
+  },
+  "smoke": {
+    "pair_count": 1,
+    "active_pn_count_per_odor": 29,
+    "calibration_repeats_per_odor": 1,
+    "probe_repeats_per_stage_odor": 2,
+    "training_cycles_per_phase": 2,
+    "retention_blank_seconds": 1.0
+  },
+  "budgets": {
+    "formal_cpu_seconds": 3600.0,
+    "formal_wall_seconds": 3600.0,
+    "smoke_cpu_seconds": 300.0,
+    "smoke_wall_seconds": 300.0,
+    "rss_gib": 1.0,
+    "address_space_gib": 2.0,
+    "artifact_mib": 50.0
+  },
+  "forbidden": [
+    "M1_RT",
+    "legacy_M2",
+    "M2_B_stimuli",
+    "market",
+    "trading",
+    "execution"
+  ]
+}

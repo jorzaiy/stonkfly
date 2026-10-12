@@ -1,0 +1,15 @@
+{
+  "access": "SEALED_AWAITING_STAGE_AUTHORIZATION",
+  "content_sha256": "ffe514b3910f062d4792b3e9660ef682cc7a9c543257fe2c87e8866a1bddacb1",
+  "content_status": "M1_COLLECTION_HASHED_NOT_RUN",
+  "domain": "M1_RT",
+  "encryption": "AES-256-GCM; unique 96-bit nonce; domain label AAD",
+  "protocol_bundle_sha256": "df891a3f906c2aa2bd16263cc5471b2740c7ec73a56988e7972f0c7a28c6ab8a",
+  "schema": "stonkfly-m1-freeze-v5-domain-manifest-v1",
+  "sealed_payload_sha256": "9318a939cd8535ac56e4d4cb9f8ff3a3d58ed496c14a05ca894342a8c28d02cb",
+  "sealer_sha256": "fd41b4a62a003a93d0d60cc2c594ae6ce943f6d174920ea304fa9a0f8724fba2",
+  "seed_commitment_sha256": "f1261f52baf5b7a9b133fbad56f21a311284d53c589951b6a458603bff46b97f",
+  "seed_exposed": false,
+  "stimulus_generator_sha256": "240354aa82cac74a4615cbcca2407ebbf2aa67f1d00196e54ee17f19f9b69365",
+  "topology_manifest_sha256": "6da241fc5c9a8651af6c8fd38d2c0fefddc7f40187c187532c0ce7636f46b0ca"
+}

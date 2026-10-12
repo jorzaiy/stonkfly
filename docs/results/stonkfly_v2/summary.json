@@ -1,0 +1,89 @@
+{
+  "schema": "stonkfly-v2-public-results-v1",
+  "generated_utc": "2026-10-12",
+  "scope": "synthetic-odor mushroom-body engineering experiments; no market or trading",
+  "experiments": {
+    "M1-RQ": {
+      "run_id": "m1-rq-freeze-v5-20261011T133740Z",
+      "verdict": "M1_REPRESENTATION_NO_GO",
+      "gates": {"S1": false, "S2": true, "S3": true, "S4": false, "S5": false},
+      "metrics": {
+        "odor_median_active_fraction_overall_1907": 0.06922,
+        "odor_16_active_fraction_1907": 0.10121,
+        "median_reliability": 0.9158,
+        "T_sep": 0.8257,
+        "apl_off_median_increment": 0.003671,
+        "B_minus_median_C": -0.003751,
+        "B_vs_C_p": 0.625
+      },
+      "resource_usage": {"cpu_seconds": 22659.8274682, "wall_seconds": 22663.85773319751, "max_rss_bytes": 1019285504, "artifact_bytes": 36326416},
+      "sha256": {
+        "formal": "ef65621f61f223d844a9372d598f85ee8c43f45f5badf62a46ca06407957a2ec",
+        "manifest": "b50d548cd2507832f660c6f96d5e5a04f2170dae5be3d08d794ec49756ee7e35",
+        "raw_npz": "c4ff7705493f0ed925ba8ddd125da74c57be365560f0fe12003c6accdc20efbc"
+      }
+    },
+    "M1-E1": {
+      "run_id": "m1-e1-20261012T032906Z",
+      "verdict": "E1_COMPLETED_EXPLORATORY",
+      "metrics": {
+        "L_minus_G_mean_rate": -0.00014013796927968752,
+        "L_minus_G_bootstrap_95ci": [-0.00022822585024453594, -0.00007185193798850855],
+        "O_minus_G_mean_rate": 0.002150243007858992,
+        "O_minus_G_bootstrap_95ci": [0.0014633763708481373, 0.0029449692337613176]
+      },
+      "resource_usage": {"cpu_seconds": 2765.51354928, "wall_seconds": 2765.982698943466, "max_rss_bytes": 738365440, "artifact_bytes": 7632269},
+      "sha256": {
+        "statistics": "d295f6a312b3394fb3f4e5b84a4a409407472380332397bcd79e239d877a5380",
+        "manifest": "976842ecb184495c42b06a2413b7ab17e399a6cb9aa045e6c7e86f24f9721c17",
+        "raw_npz": "d8110de5d0a24d4066a7c33f5ca0a13aedaba4ebc6ee35f918bc7b26784ffb19"
+      }
+    },
+    "M2-E": {
+      "run_id": "m2-e-20261012T053756Z",
+      "verdict": "ENGINEERED_ASSOCIATIVE_UPDATE_NOT_OBSERVED",
+      "metrics": {
+        "acquisition_mean": 0.011775622116623967,
+        "acquisition_bootstrap_95ci": [0.010348154959641212, 0.013180621822509602],
+        "reversal_mean": -0.01386067448792463,
+        "reversal_bootstrap_95ci": [-0.01578907119276928, -0.012183029434617553],
+        "reversal_crossing_count": 6,
+        "reversal_crossing_required": 7,
+        "retention_same_sign_count": 8,
+        "retention_ratio_median": 0.9395522058244653
+      },
+      "resource_usage": {"cpu_seconds": 2045.52615188, "wall_seconds": 2045.964911274612, "max_rss_bytes": 712060928, "artifact_bytes": 881829},
+      "sha256": {"formal": "5aa20c963dbb1269b3d2ddd0837f74299d11f1e8bc8844cf17ded6f14952ceab", "statistics": "a8ea658ffd28f2c5ec7dab65fe59284a8e96b5be9548e51197e7abdc5dbc0936", "raw_npz": "a6ddb6be8ae2e77259a89f4912d65aa446aa0fec7dda72c664ba715ac6133190", "manifest": "e5f5055a8032bf4c8ec47dcb5f8bbe0c76bb3a310fa0a75ae9df1eedb58fe359"}
+    },
+    "M2-B": {
+      "run_id": "m2-b-20261012T0740Z",
+      "verdict": "ENGINEERED_VIRTUAL_PREFERENCE_DIRECTION_UPDATE_NOT_OBSERVED",
+      "metrics": {
+        "direction_update_count": 0,
+        "direction_update_required": 3,
+        "paired_minus_frozen_acquisition_mean": 0.010574022701287055,
+        "paired_minus_frozen_acquisition_bootstrap_95ci": [0.009184902211161129, 0.011596165937294184],
+        "paired_minus_frozen_reversal_mean": -0.013754796920049512,
+        "paired_minus_frozen_reversal_bootstrap_95ci": [-0.016831284701001935, -0.010678309139097087]
+      },
+      "resource_usage": {"cpu_seconds": 1624.3503292799999, "wall_seconds": 1624.6610991545022, "max_rss_bytes": 712364032, "artifact_bytes": 497058},
+      "sha256": {"formal": "37bcbb36d7e1c5745a0e5343dbde363b940fbc8c33897821c555d796bab5a7f0", "statistics": "a18557644b0a716235f35b847e155c96d2035a2bd900b17fe2ea7b06936b99fc", "raw_npz": "b0fd7cda8688e62165ec6e941a30c412643757a1212421c1b985e3efe164d14d", "manifest": "2fc8d3f5708147450ee9513958ece1f5c878258ff37be0ff4d56be734a2c040b"}
+    },
+    "M2-C": {
+      "run_id": "m2-c-20261012T100756Z",
+      "verdict": "ENGINEERED_AGGREGATE_PREFERENCE_DIRECTION_UPDATE_NOT_OBSERVED",
+      "metrics": {
+        "aggregate_probe_count": 10,
+        "direction_update_count": 0,
+        "direction_update_required": 3,
+        "paired_minus_frozen_acquisition_mean": 0.013412130237197319,
+        "paired_minus_frozen_acquisition_bootstrap_95ci": [0.011711796872147823, 0.016223674519371806],
+        "paired_minus_frozen_reversal_mean": -0.01436925324736007,
+        "paired_minus_frozen_reversal_bootstrap_95ci": [-0.015956388013036144, -0.012531605200727377]
+      },
+      "resource_usage": {"cpu_seconds": 1597.59345672, "wall_seconds": 1597.8614180497825, "max_rss_bytes": 710852608, "artifact_bytes": 545897},
+      "sha256": {"formal": "9da60d42697fc5a9aa27a70f901201558bc13ba5e6e2e0a5cbb2f0e67a3b081e", "statistics": "4cbdb33125d13f22e4d7f267d546001f7ce0dd566c36679a54cba0e47d1c2876", "raw_npz": "7edad50048b6ebd7a3acde9b5ba0beee2a9adaef6a72d581611879a2fb409e8d", "manifest": "e64595e76d40595f245f8ecb39de68375ac02d6015b7ea767c0cef092b4c2edb"}
+    }
+  },
+  "interpretation": "Repeatable engineered paired differential updates were observed, but frozen absolute zero-threshold preference criteria were not met. No real-fly behavior or biological learning validation is claimed."
+}

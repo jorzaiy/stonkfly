@@ -1,0 +1,43 @@
+{
+  "schema": "stonkfly-m1-e1-exploratory-config-v1",
+  "status": "AUTHORIZED_EXPLORATORY_M1_E1_ONLY",
+  "hemisphere": "R",
+  "models": ["G", "L", "O"],
+  "parameters": {
+    "tau_k_ms": 10.0,
+    "tau_apl_ms": 50.0,
+    "input_scale": 1.0,
+    "apl_gain": 1.0,
+    "threshold": 0.35,
+    "active_mean_rate_threshold": 0.05
+  },
+  "timeline_ms": {
+    "duration": 2000.0,
+    "pulse_start": 500.0,
+    "pulse_end": 1000.0,
+    "trace_bin": 10.0
+  },
+  "dt_ms": [0.1, 0.05, 0.025],
+  "stimulus": {
+    "seed_label": "STONKFLY-V2/M1-E1/STIMULUS/v1",
+    "seed_sha256": "5592f3331c82b75ca4551c3839be27174c6c650983b9ca697cd013780eaa79a8",
+    "seed_uint64_little_endian": 6680951629869716053,
+    "pn_count": 145,
+    "odor_count": 16,
+    "repeat_count": 10,
+    "active_pn_count_per_odor": 29,
+    "base_amplitude_uniform": [0.8, 1.0],
+    "repeat_jitter_normal_sd": 0.05,
+    "clip": [0.0, 1.0]
+  },
+  "zero_repeats_per_model_dt": 10,
+  "local_groups": ["gamma", "alpha_beta", "alpha_prime_beta_prime", "untyped"],
+  "local_cross_group_coupling": 0.0,
+  "budgets": {
+    "cpu_hours": 3.0,
+    "wall_hours": 4.0,
+    "ram_gib": 2.0,
+    "artifact_gib": 1.0
+  },
+  "interpretation": "Exploratory effect estimation only; no M1-RQ gates or qualification verdict."
+}

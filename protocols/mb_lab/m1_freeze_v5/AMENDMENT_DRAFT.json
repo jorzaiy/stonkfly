@@ -1,0 +1,131 @@
+{
+  "schema": "stonkfly-m1-freeze-v5-amendment-draft-v1",
+  "status": "DRAFT_ONLY_ALL_FORMAL_STAGES_NO_GO",
+  "base_freeze_v4": {
+    "config_sha256": "4a36718de702128bed899e16ff72233f88e07a2f11a8db727f67ed3ffcb4df48",
+    "rq_manifest_sha256": "1ee0b3fdcceac3fcb4c1e8d15d66bdd6b3dd1e3837ed2343a5c3df7d93405a74",
+    "preregistration_sha256": "6ea6c2f3ef1fd67281fcc7b16170edd0436d917eff371754ab5a41b81c1aa669",
+    "capacity_v2_sha256": "14fbfa051efffce0e0774830784e4cc4c882de34c8eecf1e2b0cc3b14e215294",
+    "disposition": "PRESERVE_IMMUTABLY_AND_MARK_SUPERSEDED_BY_SIDECAR_ONLY"
+  },
+  "unchanged": [
+    "model_equations",
+    "all_model_parameters",
+    "stimulus_generation_rule",
+    "scientific_effect_thresholds",
+    "topology_seed_derivation",
+    "39_control_topologies",
+    "primary_1907_and_secondary_2045_population_definitions"
+  ],
+  "protocol_changes": {
+    "s2_rng": {
+      "encoding": "UTF-8 without BOM or trailing newline; labels are ASCII subset",
+      "hash": "SHA-256",
+      "integer_extraction": "first 8 digest bytes interpreted as unsigned little-endian uint64",
+      "integer_range": [0, 18446744073709551615],
+      "generator": "numpy.random.Generator(numpy.random.PCG64(seed_uint64))",
+      "draw": "9999x16 uint8 integers in [0,2), C row-major draw order; 0 maps to -1 and 1 maps to +1",
+      "rq": {
+        "label": "STONKFLY-V2/M1/FREEZE-V5/RQ/S2-SIGNFLIP/v1",
+        "digest_hex": "013d654c748b4da8c88bf6e0df8c37880e7441ff144ddcd4b76f903ddd6cce76",
+        "seed_uint64": 12127502703192784129
+      },
+      "rt": {
+        "label": "STONKFLY-V2/M1/FREEZE-V5/RT/S2-SIGNFLIP/v1",
+        "digest_hex": "085d908c1ae25d611e2685288ebc5cf01fcf9ff46821cba1f77ca34422f08edf",
+        "seed_uint64": 7016012398168399112,
+        "access": "PUBLIC_COMMITMENT_ONLY_DO_NOT_RUN_BEFORE_SEPARATE_RT_AUTHORIZATION"
+      }
+    },
+    "i8": {
+      "stimulated_paths": "B APL-on, B APL-off, and each of 39 C APL-on paths",
+      "unit": "one path x odor x trial",
+      "reference_dt_ms": 0.025,
+      "rate_vector": "q=response-window integral divided by 500 ms over 1907 covered KCs",
+      "active_fraction_error": "absolute difference of covered-KC active fractions",
+      "nrmse": "RMS(q_candidate-q_reference)/max(RMS(q_reference),0.05)",
+      "active_jaccard": "ordinary Jaccard; both empty is 1 only for I8 numerical identity, exactly one empty is 0",
+      "aggregation": "maximum active-fraction error, maximum NRMSE, and minimum Jaccard over every unit; no averaging",
+      "halving": "for each unit use common denominator max(RMS(q_0.025),0.05): E_coarse=NRMSE(q_0.1,q_0.05), E_fine=NRMSE(q_0.05,q_0.025); pass if both <=1e-4, otherwise E_fine<=0.6*E_coarse",
+      "thresholds_unchanged_pending_independent_review": {
+        "dt_0.1_active_fraction_abs_max": 0.005,
+        "dt_0.05_active_fraction_abs_max": 0.0025,
+        "dt_0.1_nrmse_max": 0.05,
+        "dt_0.05_nrmse_max": 0.025,
+        "dt_0.1_jaccard_min": 0.9,
+        "dt_0.05_jaccard_min": 0.95,
+        "halving_ratio_max": 0.6,
+        "absolute_floor": 0.0001
+      },
+      "science_classification_vector": ["S1_B", "S2_B", "S3_B", "S4_B_APL", "S5_B_VS_39C"],
+      "classification_rule": "the five booleans must be identical at all three dt values",
+      "zero_rule": "ZERO is checked separately under I7 and I8; all continuous outputs must be finite and numerical active sets must be identical across dt"
+    },
+    "rq_verdict": {
+      "qualified": "M1_RQ_QUALIFIED",
+      "meaning": "RQ passed I1-I8 and B passed S1-S4; RT remains sealed and no final M1 success is claimed",
+      "topology_substatus": ["SUPPORTED_AT_RQ_ONLY", "NOT_DEMONSTRATED_AT_RQ"],
+      "final_success_forbidden_before_rt": true
+    },
+    "zero": {
+      "repeats_per_dt_per_apl_condition": 10,
+      "dt_ms": [0.1, 0.05, 0.025],
+      "apl_conditions": ["on", "off"],
+      "formal_odor_trial_count_excludes_zero": true,
+      "formal_odor_trials": 160,
+      "zero_trials_per_dt": 20,
+      "common_initial_state": true,
+      "input": "exact float64 zero vector for all 145 PNs at every time step"
+    },
+    "control_failure_semantics": {
+      "b_missing_or_nonfinite": "S1/S2 failure or implementation failure according to cause; never omit",
+      "c_nonfinite_or_invariant_failure": "M1_IMPLEMENTATION_FAILURE",
+      "c_finite_but_undefined_scientific_t_sep": "retain control and assign T_C=+infinity for S5 rank/effect calculations; report reason; never replace or redraw",
+      "s5_scope": "B and all 39 fixed C controls at a given dt",
+      "s1_s3_scope": "B APL-on only",
+      "s4_scope": "paired B APL-on versus B APL-off only"
+    }
+  },
+  "rq_error_precedence": [
+    "M1_IMPLEMENTATION_FAILURE",
+    "M1_BUDGET_EXHAUSTED",
+    "M1_NUMERICAL_NO_GO",
+    "M1_REPRESENTATION_NO_GO",
+    "M1_RQ_QUALIFIED"
+  ],
+  "budget": {
+    "old_8_59_cpu_hours_reusable_as_verdict": false,
+    "stimulated_network_trial_paths": 6560,
+    "zero_paths": 20,
+    "total_path_trials_per_dt": 6580,
+    "arithmetic_reference_cpu_hours_including_existing_1_25_margin": 8.214815494277778,
+    "status": "PROVISIONAL_ONLY_REQUIRES_FINAL_HASH_BOUND_RUNNER_BENCHMARK",
+    "hard_limits_unchanged": {
+      "cpu_hours_per_stage": 24.0,
+      "wall_hours_per_stage": 24.0,
+      "peak_ram_gib": 4.0,
+      "artifact_gib": 5.0
+    }
+  },
+  "reseal_plan": {
+    "new_random_seeds_for": ["M1_RQ", "M1_RT", "M2_LQ", "M2_LT"],
+    "reuse_v4_plaintext_seeds": false,
+    "reuse_topology_seeds": true,
+    "v4_action": "do not modify, delete, rename, decrypt, or overwrite",
+    "supersession_record": "new v5 sidecar references hashes of all v4 public manifests and labels them SUPERSEDED_PROTOCOL_NOT_RUN",
+    "v5_manifest_must_commit": [
+      "canonical protocol bundle",
+      "configuration",
+      "preregistration",
+      "runner and all imported result-affecting modules",
+      "stimulus generator and sealer",
+      "source connectome locks",
+      "B and all 39 C topology hashes",
+      "all tests and independent oracle",
+      "environment lock",
+      "authorization public key",
+      "capacity evidence"
+    ],
+    "execution_in_this_round": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "access": "SEALED_AWAITING_EXPLICIT_STAGE_AUTHORIZATION",
+  "config_sha256": "744d4b9cab7a56651a692817405d72d0b15b22fab516f0a4f428c4b35bad477d",
+  "content_sha256": "750cf69de7d60bd173cd18a6765a1ff068411266fe32fcdef982fcd2b02d5a4d",
+  "content_status": "M1_COLLECTION_GENERATED_IN_MEMORY_AND_HASHED_NOT_RUN",
+  "custodian": "local_manual_review",
+  "domain": "M1_RT",
+  "key_relative_path": "data/mb_lab/sealed/m1_v1/m1_rt.key",
+  "schema": "stonkfly-sealed-domain-manifest-v1",
+  "sealed_payload_relative_path": "data/mb_lab/sealed/m1_v1/m1_rt.sealed",
+  "sealed_payload_sha256": "18ad68e3fca64d2846ff47e34072ee603a2939326613c8f8f1cd46e3df64f42a",
+  "seed_commitment_sha256": "6113e0233d58ac65efb5bba6daef6d115dbe8122318e8cd854b26ee77c81f705",
+  "seed_exposed": false
+}

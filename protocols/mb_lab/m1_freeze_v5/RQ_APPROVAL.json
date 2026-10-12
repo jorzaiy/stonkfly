@@ -1,0 +1,16 @@
+{
+  "schema": "stonkfly-m1-freeze-v5-scope-approval-v1",
+  "date_utc": "2026-10-11",
+  "authorized": "M1_RQ_ONLY",
+  "approval_basis": "User accepted freeze-v5 closure and explicitly requested completion followed by RQ launch.",
+  "still_forbidden": [
+    "M1_RT",
+    "M2_LQ",
+    "M2_LT",
+    "market_data",
+    "trading",
+    "parameter_or_gate_changes_after_unsealing"
+  ],
+  "protocol_effect": "The freeze-v5 amendment is accepted for this one M1-RQ run; draft filenames are retained as historical names.",
+  "final_m1_success_before_rt": false
+}

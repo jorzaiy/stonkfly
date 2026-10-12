@@ -1,0 +1,163 @@
+{
+  "all_finite": true,
+  "degree_preserved_all": true,
+  "domain": "BENCHMARK_ONLY",
+  "dt_ms": [
+    0.1,
+    0.05,
+    0.025
+  ],
+  "edge_count": 10732,
+  "estimated_one_stage_cpu_hours_linear": 8.589351155111112,
+  "estimated_two_stage_cpu_hours_linear": 17.178702310222224,
+  "estimation_assumption": "linear in neural duration and 160 trials, multiplied by 43/40 for APL-off/ZERO paths and by a 1.25 engineering margin; excludes one-time graph build and assumes no parallel speedup",
+  "formal_experiment": false,
+  "left_replication_inventory": {
+    "boundary_in_edges": 116026,
+    "boundary_out_edges": 167875,
+    "categories": {
+      "APL->KC": 2019,
+      "APL->PN": 117,
+      "KC->APL": 2019,
+      "KC->KC": 318561,
+      "KC->PN": 2359,
+      "PN->APL": 124,
+      "PN->KC": 10734,
+      "PN->PN": 2903
+    },
+    "internal_edges": 338836,
+    "nodes": {
+      "APL": {
+        "count": 1,
+        "node_index_sha256": "ae3b858431010bc7360ded33707b8ffd43bd13a25627f83cb03892535a7d241e",
+        "source_id_sha256": "57db542214f482942609364925621ef732ce979bd5ed77c644ed72fcd89f3aca"
+      },
+      "KC": {
+        "count": 2019,
+        "node_index_sha256": "d091146292b7a22f241dcb13ea73f0a46cf1710acb4fd41149549e352c7bc107",
+        "source_id_sha256": "a9789bcb00cabd4116da742dfb844cbe5c92565bdc10ee6981ad5534d303d5b7"
+      },
+      "PN": {
+        "count": 145,
+        "node_index_sha256": "dc5a02d3924687a8c454be291a5af37c88ae0e58b918a693e2b4a1181c656c04",
+        "source_id_sha256": "da67dfbaee24b2b2c48c28b0212fb031c5913af98547eac56c2ef9bfaa077385"
+      }
+    },
+    "olfactory_covered_kc": {
+      "count": 1887,
+      "node_index_sha256": "447a0c6d4ebfff8129e6e5244c1f96763ed5aa326140b3bae277e12a7408e3dd",
+      "selection": "same-side KC with at least one edge from a same-side eligible PN",
+      "source_id_sha256": "24ab40bf17c292b352c7e1dc9384884ac787a7dd435b2d8790115ce08660e6a8",
+      "uncovered_count": 132
+    },
+    "schema": "stonkfly-m1-static-inventory-v1",
+    "side": "L",
+    "union_nodes": 2165
+  },
+  "max_rss_kib": 595620,
+  "measured_cpu_seconds": 17.977711720000002,
+  "measured_neural_duration_ms_per_network_dt": 250.0,
+  "measured_rows": 120,
+  "measured_wall_seconds": 17.980270583182573,
+  "n_kc": 1907,
+  "n_pn": 145,
+  "network_count": 40,
+  "network_hashes": [
+    "975fa9d333563bd5ee41afe48074e7a869507caa71b23a5fcb423a2ad3b0b96a",
+    "b56adc613ad84a31c7f8a0601adeee0c390391d3a25aca8e2cabd44ed1e25282",
+    "1f8c68fd9b22acad8f1ca7d39ec2ebbdffb41b31115438d4012e6c9ab5d4f297",
+    "5118f388fce6fb409434c333f7541c8b701a8db9f30e3edfb54d2aff6961fdf9",
+    "c35fe7e64b65534bcb83cc4a37d76cb92603d3947f72f8d9c885e7567c3e6f96",
+    "ad0117cca7a57465c6830d65af82a06c6a7b08ee2b656d309e47886ea823e7e3",
+    "b3c9accb3e9d57bb86a12dfd02617aa2c1ffe47df4497803ae262e067c76cfa2",
+    "20d3fae0ba2a4dba8919c25a7d9f4ab33b14b62fc0446f4b7f6ee6052ff2f182",
+    "25dce25915136f35d1b6bd9977482a773702f23c1c8ae850d9e9115ef0c7ac5a",
+    "71899de9899d4a2ae40c3a24da05818d58c780bae6089cbf00159c40d695399a",
+    "1b8e9ad72128d9108275cea5a3d490f899247700d315b4f19d1bd29517b80e67",
+    "f8bd52b18b2657a7472a32752a7456b92d9c40a7f07a5f211066d804d22ffe41",
+    "ffa9186f7d8650300504332f0efdf8a6982fe94d740156b09552672f5c15088c",
+    "9ed2b442d75d0bbd3694917cb6b1c0bdd64f729077f4a1b988a0a5f5ab45e9b3",
+    "b295a7807eea96cc07eaeb5c558b8dd55910567796dcad98d63f9d5b20f8e61e",
+    "4edf0c06b1dfb00d5796cdd8803fa43edc49296143458d71160e101f7097251b",
+    "41ea5375bbc3cfc996969fb198df84f757466feb4a44fcd6fb7a8afa34acba55",
+    "0f631acad3c2d8f1ec1c165400e1148bc026db8c4ade0fd2cf721c493f924002",
+    "8edd0f63bb14b69abfba21a21f8531c1f12807c3ddd77d1124ea30139099adc5",
+    "da953fadefeb5555c7fed37e2de32766f146a90bc26dbd68bcee21b01e241dfb",
+    "a7e0c9d8440982273d51e6a38c66bdd605a414f45cd28fbc8abae2d021b35e2b",
+    "13e4666c2ab1a25683b4644c34850297cf42dfd91dcfa377961a19184294f66a",
+    "a4b2e46d40a06668bcc44c6dfc1e23d25c1f935884d9cc65d98a13a317123fb2",
+    "8c9cfe9c8f630ede908eabfd11db3bcbf75a70d19433c4b7897bd527ef447e1f",
+    "5d8b8330274d617a49904dadb39a63a02c1b074a389cbddf97964469ea91c83c",
+    "931963187cc251e488dfc2040795edf560cab17ed04cd598005d901d1cc902d4",
+    "b41d39d258d0c263bc98e22e72c8b61429f0c2a12163bf3ed2d9cdae4d00e56e",
+    "b616738df2271c1c387b0414ec8c0d469bdc68ee6b78617e43c9a5d7cf989e3b",
+    "96b3da68ccd6421748f88da8d384320381c1a106a6bb6c75731f07b5812475f4",
+    "987200991ba51d5d965e4beecfa4914f60d8919481e5187a1ef64d69372ea013",
+    "4c4211a1f3233c642e66fe2104a11a20e16aecee700711de2ecbe30920d73efb",
+    "a422b6ea083ffaec6d8e81d3be06cb4cc85ecafe7a1876419dbb5779149924ec",
+    "abf71e01dd73972498907c090302defa6112435804551ede67051f866e779486",
+    "79ce81aa0ec87d3e2b2f87c65896ad9be3a9edc0d96ff52e9d5590d0705a133c",
+    "9b0392e14e3d6e4eab6950126835cb7e2f8cb46200bccd87f97821412fbf1f6e",
+    "7bb67caae5e4307c901d85d003ae176d28287e2d5d1484851c63666ffc1778a6",
+    "164ab4561c1efe84b5e8db1411beb460abfb96d6408862866a414d56d44d6379",
+    "72055e0b4cfac00285c1d4672dabfc48e77969ab460a1fa2fef3359de904bb00",
+    "b85d55bfb5f8572809b7a2e4d8e6fac5b19f352f6b9186fb0554026fe068a624",
+    "4cbc2d97acf51b26c91090c425b5e4403f0a28be293f8e14f104bdfe63350f07"
+  ],
+  "real_topology_sha256": "975fa9d333563bd5ee41afe48074e7a869507caa71b23a5fcb423a2ad3b0b96a",
+  "rewire_build_wall_seconds": 26.177742537111044,
+  "right_inventory": {
+    "boundary_in_edges": 115258,
+    "boundary_out_edges": 170412,
+    "categories": {
+      "APL->APL": 1,
+      "APL->KC": 2044,
+      "APL->PN": 116,
+      "KC->APL": 2044,
+      "KC->KC": 323853,
+      "KC->PN": 2618,
+      "PN->APL": 117,
+      "PN->KC": 10732,
+      "PN->PN": 3133
+    },
+    "internal_edges": 344658,
+    "nodes": {
+      "APL": {
+        "count": 1,
+        "node_index_sha256": "fd3fab299748f999ac7b39cf394a6a37f1e39f52967de855317958ed127f3aba",
+        "source_id_sha256": "fa7934272ceb212020d96ec417d933308470794df7c34f1501082f6eecb05cdf"
+      },
+      "KC": {
+        "count": 2045,
+        "node_index_sha256": "2103e586cfaffc52754b6d3c12b12437b9ca242df25fbe8c76cc604fea39ae22",
+        "source_id_sha256": "9b139bea4e83e37b66edda923586103eee4ac06e988863dde36d2c6537689fdb"
+      },
+      "PN": {
+        "count": 145,
+        "node_index_sha256": "76d1209876d30ac71a202ec8efc8e86f33183c88e68f0210906f5b5d2dabdfe2",
+        "source_id_sha256": "24ccb5a52d3c548369c32488b72bbcca434e81a4dd78e54d21c94327c014c59f"
+      }
+    },
+    "olfactory_covered_kc": {
+      "count": 1907,
+      "node_index_sha256": "b1ed432f9ee40d98d83173eabffc11bb26ffab5c447801d64f767d97b6563839",
+      "selection": "same-side KC with at least one edge from a same-side eligible PN",
+      "source_id_sha256": "235137a22e6d0f291564166309978fd3041e2dd736f3a42b49d60484c31d2d4a",
+      "uncovered_count": 138
+    },
+    "schema": "stonkfly-m1-static-inventory-v1",
+    "side": "R",
+    "union_nodes": 2191
+  },
+  "schema": "stonkfly-m1-capacity-benchmark-v1",
+  "scientific_metrics_computed": false,
+  "sealed_domains_accessed": false,
+  "source_hashes": {
+    "annotations": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+    "frozen_config": "4a36718de702128bed899e16ff72233f88e07a2f11a8db727f67ed3ffcb4df48",
+    "graph_npz": "346b8af85a11af13b8324e18669812c1924569e7d1adcb4e6f45cc461a2c344b",
+    "normalized_neurons": "2103b5203d2ba5502c06fb70a4e0b23edcbcf79ed0c344722101941fc289ba2d",
+    "source_lock": "a518a766aa46b14b7b9230a108a63b902acc1e3386f123f45d5c52311342efd8"
+  },
+  "unique_graph_hashes": true
+}
